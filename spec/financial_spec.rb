@@ -81,6 +81,12 @@ describe Exonio::Financial do
 
       expect(results).to eq(70.14566694692749)
     end
+
+    it 'raises an exception when the payment amount is lower than the interest amount' do
+      raise_message = "The payment amount ($ 100) is too low. It should be at least $ 560.0 (interest amount)"
+
+      expect { Exonio.nper(rate, 100, -pv, fv, 1) }.to raise_error(ArgumentError, raise_message)
+    end
   end
 
   describe '#pmt' do
